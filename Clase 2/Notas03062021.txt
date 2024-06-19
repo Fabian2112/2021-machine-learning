@@ -1,0 +1,136 @@
+
+
+El dataset se puede controlar con shuffle, en false, no los mezcla, pero por standar, en true, los mezcla todos...
+
+
+ALGORITMOS BASADOS EN INSTANCIAS
+
+sklearn
+
+Depende de la cantidad de Vecinos 'Neighbors'
+
+graficos de distintas combinaciones de columnas
+
+
+from sklearn.neighbors import kneighborsclassifier, radiusneighborsclassifier
+
+kn=
+
+metrica de distancia de Minkowsli-diferencia de la raiz cuadrada  de los cuadrados
+
+predecir('hyperparametro`)
+
+el accuracy malisimo da un 84%
+
+generar una prueba muy desbalanceada (muchos ceros y pocos unos)
+si es mas balanceado el limite del accuracy baja de 84 a 62%
+
+El accuracy para el ejemplo se logra a partir del tercio de tipos de Flores y da un 97%... buena!
+
+despues del accuracy tengo que ver si es optimo mi modelo
+nk=30
+scores = np.zeros((nk,2))
+
+sale un array de dos columnas, la segunda nos dice el accuracy para cada cantidad de vecinos...
+la idea es ver que modelo da el mejor de todos
+En nuestro ejemplo con neighbors entre 10 y 20 _ elegimos 15
+
+Radiusneighbors NO toma todos los vecinos, sino que arma un radio de vecinos,
+
+Se prefiere usar kneighbors ya que Radius quizas no agarra ningun vecino dentro de un radio y Kneighbor siempre agarra alguno.
+
+siempre para entrenar un modelo
+es ___ . fit (X_train, y_train) y ya està entrenado!
+
+en linspace entre que distancias ('r' (radius)) voy a tomar (ej, entre 0,1 y 5)
+como no encuentra vecinos subimos de 0.1 a 0.7...
+con el accuracy vemos que con radio 5 ya accuracy=0.30 (muy bajo)
+con 0.69 es el mejor radio para lograr la mayor precision
+
+funcion 'enumerate' sirve para enumerar cosas
+
+
+MODELOS GENERATIVOS
+
+GAUSSIAN NAIVE(asume) BAYES(estima)
+
+dependiendo que valor tiene se le asigna una u otra gaussiana de probabilidad (roja, azul, violeta)
+Es un modelo tan sencillo que practicamente no tiene hyperparametros...
+Esta prediccion se ajusta bastante a campanas gausianas, por lo que da un buen accuracy..
+
+gnb.sigma es el desvio standar de cada clase de cada parametro
+
+rn.predict ('numeros muy grandes') -> no va a dar por no tener un radio que abarque esos numeros
+kn.predict ('') ya si va a dar numeros correctos porque toma todos los valores cercanos
+gnb.preditc ('') idem "kn"
+
+distintos modelos tienen distinto nivel de complejidad.
+
+
+ARBOLES DE DECISION
+Basicamente va separando datos y creando reglas sencillas de entender, x> o < de cierto valor
+
+segun imagen genera dos Subsets, en izq sigue dividiendo de manera horizontal para darle pureza y asi continúa...
+
+subdivide datos donde cada region queda con una unica categoría.
+
+max.depth -> para indicar la cantidad de subdivisiones.
+criterion -> que criterios utiliza para subdividir
+
+dtc. (TAB) --> atributos con Guion Bajo
+dtc.feature_importances_ (ejemplo, el modelo entiende que la cuarta columna es el parametro mas importante "ancho de petalo")
+plt.show() --> para ver el ARBOL
+primero agarra la columna 3 que sea menor a 0.8
+gini=0.0 (impureza nula --> subdivision de unica categoria)
+
+elije la cuarta columna (de indice 3) porque vio que pudo dividir de una manera simple el ancho de petalo, se separaban mejor los distintos parametros ("ver graficos de 4º COL")
+
+Es una clasificacion que se puede hasta realizar a mano
+
+se hace para evitar overfiting que ya sera una anomalia de la estadistica,
+por ej, de la imagen, seguir subdividiendo hasta ese punto rojo, es un ruido dentro del conglomerado azul, entonces 
+
+
+OVERFITING
+
+es raro que oscile en la grafica para mayor de 5 ya que el modelo solo llega hasta ese nivel
+pero es porque el modelo va variando el estado inicial para ir haciendo los calculos ("toma otra columna")
+
+
+RANDOM FOREST
+
+Es un arbol que toma elementos al azar para cada data set
+ej. de 130 datos, toma 80 y hace su arbol de decision, dsps toma 50 y genera otro
+
+Con cada arbol tiene una solucion y si son 50 arboles toma las 50 soluciones y por mayoria toma la mas acertada
+
+ensamble es donde estan los modelos que se componen de muchos otros modelos
+
+Podemos con for in ir por cada modelo y ver con los parametros standar cuanta accuracy nos brinda cada uno.
+Se pueden agarrar todos los modelos de ScikitLearn y ver precisiones de cada uno. (aca solo estamos tomando 4)
+
+
+METRICAS
+
+Como evaluar las metricas...
+Ahora solo tenemos 2 categorias: cero y uno
+
+etiqueta real y etiqueta predicha por el modelo --> 4 posibilidades
+true  
+false
+positive
+negative
+TP (1/1) - TN - FP - FN (fue clasificado como cero pero era 1)
+
+Accuracy = casos bien tomados / Suma de todos los casos
+
+
+otras metricas -> precision(de la totalidad de positivos cuántos dan bien) y recall (de los que fueron tomados como positivos, cuantos son verdaderos)
+
+en medicina, que te diagnostiquen enfermo cuando no lo estas, no es tan grave, pero si a la inversa...
+o que algo que se muestra no sea relevante para la persona y no quiera verlo.. caso de False Positive.
+
+
+
+
+

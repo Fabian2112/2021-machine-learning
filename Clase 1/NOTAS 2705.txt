@@ -1,0 +1,148 @@
+Cambio en la cultura del Machine Learning.
+Lenguaje de Python con distribucion Anaconda/ usa el Jupyter Notebook (Entorno)
+crea un servidor y se puede entrar desde la web
+Son celdas [Tipo: de Codigo; de Textos]
+
+ARCHIVOS DRIVE
+
+
+Machine Learning --> Rama de la Inteligencia Artificial
+Habilidad de las computadoras para aprender sin programar directamente
+
+E (Experience-Datos) [en Reinforcement Learning-proceso]
+T (Task-Tarea a Realizar)
+P (Performance- Medidas para tomar la decision)
+
+Sin datos hay una performance baja...
+
+Algoritmos de filtros de SPAM (Los primeros ML)
+T: Clasificacion de Spam o no Spam
+P: ["Accuracy"] Proporcion de mail correctamente clasificados
+Dado un DATASET ya dado (depende de cuantos mails correctos dentro de un total)
+E: Dataset de emails clasificados de Spam o NoSpam
+
+Algoritmos para predecir precios de propiedades
+T: Predecir el precio de las propiedades
+P: Sumatoria de diferencias dividido cantidad de propiedades
+(asi nos dice que tan bien esta funcionando POR prediccion y no al total)
+E: dataset con caracteristicas de las propiedades y sus precios
+
+EJEMPLOS
+Segmentacion de Clientes --> del NO SUPERVISADO (tipo Clusters)
+
+
+TIPOS DE ML
+
+x supervision
+-Supervisados [Tipo de filtracion SPAM o NOSPAM]
+Datos que existen
+-No Supervisados
+	Clustering
+	Deteccion de anomalias
+	Asociaciones
+
+x prediccion
+Basado en Instancias
+Basado en Modelos
+
+x flujo de datos
+Por Lote
+En Linea
+
+HERRAMIENTAS
+Python
+Numpy (analisis de datos)
+Pandas (analisis de datos)
+Matplotlib (analisis de datos)
+Scikitlearn (Modulo) - sus APIs [Interfaces con las que se interactuan]
+
+
+REPASO PYTHON
+En python10 vendra con SwitchCase_
+Anaconda siempre viene un paso atras que Python (ahora 3.8)
+
+
+REPASO NUMPY
+Los algoritmos de SciKitLearn esperan convertir a traves de Numpy
+"ARRAY"
+-----------------------------------
+import numpy as np
+arr = np.array([3,9],[5,8],[4,5,2])
+Por cada columna una caracteristica
+Numpy es 70 veces mas rapido que Python
+np.{"TAB"}
+arr.{"TAB"}
+
+REPASO DE PANDAS
+Tambien esta construido sobre Numpy, se basa en dataframes
+------------------------------------
+import pandas as pd
+df=pd.DataFrame(matriz)
+df.values
+df.plot() _ graficos
+df[0].plot.pie
+
+REPASO DE MATPLOTLIB
+Tambien esta construido sobre Numpy, Es en lo que se basa pandas para hacer graficos
+--------------------------------------
+import matplotlib.pyplot as plt
+plt.plot(x,np.cos(x))
+
+
+SCIKITLEARN
+--------------------------------------
+from sklearn.datasets import load_iris
+iris = load_iris()
+iris 
+{es como una biblioteca_es un dataset} tiene 50 ejemplos de 3 clases-150 puntos es un dataset chico
+iris["target"]
+
+X,y=iris['data'],iris['target']
+y:minuscula porque es un vector
+plt.scatter(X[:,0],X[:,1], c=y)
+{La 'c' para el color}
+
+caso=np.array([5.75,3.2])
+X_train - caso (hace BroadCasting)
+np.sort() => Ordena las distancias
+np.argsort() => Nos dice QUE ELEMENTO es el ordenado anteriormente
+
+Buscar etiquetas
+------------------
+n=5 => cinco vecinos
+indices_vecinos = np.argsort(dists)[:n]
+y[indices_vecinos]
+-> ETIQUETAS
+np.unique
+
+def pred_caso (x_data, y_data, caso, n):
+
+HACER UN ALGORITMO
+Dado un data set un caso y una cantidad de vecinos, predecir una etiqueta
+Distancias,
+segun indices de vecinos, y las clases de esos vecinos y la categoria de estos
+y repetir las clases de los vecinos con frecuencias
+
+
+Iniciar un modelo...
+from sklearn.neighbors import KNeighborsClassifier
+->Los modelos tienen que aprender de los datos
+model=KNeighborClassifier(n_neighbors=5) -> cinco vecinos
+model.fit(X,y)
+model.predict([EJEMPLO])
+
+Elegir que modelos queremos usar, poner el FIT (datos) y luego el predict
+El fit es lo mas importante y puede demorar mas o menos...
+
+
+para hacer la Performance tengo que entrenar UNA PARTE del dataset, que se toma de manera ALEATORIA,
+from sklearn.model_selection import train_test_split
+nos divide en mayor parte (75%) en train para entrenamiento; y menor en test para testeo
+dentro de la funcion, dentro del parentesis {SHIFT+TAB}
+
+Una vez entrenado, elijo un test y vemos que coincida
+model.fit(X_train,y_train)
+model.predict(X_test) 
+accuracy=97% => MANUAL   ó    
+from sklearn.metric import accuracy_score
+accuracy_score (y_test, prediction)
